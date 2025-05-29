@@ -26,7 +26,7 @@ npm install
 npm run dev
 ```
 
-##Requirements
+## Requirements
 - Node.js ≥ 18
 - Browser with Geolocation API support
 - HTTPS (required for geolocation)
