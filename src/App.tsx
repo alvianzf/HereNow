@@ -1,7 +1,5 @@
-
-
 export default function App() {
   return (
-    <div className="bg-red-500"></div>
+    <div>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur accusantium veniam corporis, quo, enim facilis iusto explicabo voluptates dolorum ex quod aspernatur? Quae odio quas architecto quasi, labore exercitationem dignissimos magnam voluptatibus atque! Tempora, quos natus vel vero fugit quisquam sit quae voluptatem, eius dolor nostrum temporibus quibusdam nulla, provident quis facere perferendis consectetur itaque earum dolorum doloribus velit dicta? Ea nobis id autem quis explicabo corporis quasi commodi possimus eligendi ex, voluptatem inventore minima ipsa, vero distinctio deleniti at, recusandae dolore quibusdam. Accusamus necessitatibus iusto quos sunt nemo quibusdam? Ea eaque aut suscipit optio, assumenda dicta accusamus recusandae libero repellendus? Harum quibusdam, est cum aliquid quidem, impedit laboriosam aliquam dolorum eius eaque illo, dignissimos porro dolorem. Fugit blanditiis eius at corporis iure veritatis officiis rem enim eos dolores quasi voluptas nemo nostrum facilis, eligendi praesentium aliquam dolore excepturi quidem? Aliquam maiores ullam vel veniam reprehenderit voluptate distinctio voluptas minima repellat, rem eius. Voluptatem accusamus a deleniti fuga, doloremque necessitatibus quibusdam quasi fugiat magni, eligendi beatae dolor corporis soluta voluptatum sapiente libero tempore maxime atque maiores? Sit ipsa tempora repudiandae? Eius itaque distinctio suscipit. Atque optio reprehenderit nam vitae quasi, ipsa at quia ullam, perspiciatis iure velit error aperiam animi?</div>
   )
 }

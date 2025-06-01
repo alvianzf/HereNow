@@ -1,39 +1,54 @@
-# HereNow
+# React + TypeScript + Vite
 
-**Geo-locked Attendance App**  
-A smart and secure attendance tracking system where users must clock in within the designated office area. Built with **Vite + React + TypeScript** for speed and maintainability.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features
+Currently, two official plugins are available:
 
-- 🌍 **Geo-locked Clock-In** – Enforces location-based attendance.
-- 🕒 **Real-Time Presence** – Live tracking of who’s in or out.
-- 📊 **Admin Dashboard** – View and manage attendance records.
-- 📱 **Mobile Friendly** – Optimized for phones and tablets.
-- 🔒 **Secure & Reliable** – Location verification and access control.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Tech Stack
+## Expanding the ESLint configuration
 
-- **Frontend**: Vite, React, TypeScript, TailwindCSS (optional)
-- **APIs**: Browser Geolocation, REST/GraphQL (customizable)
-- **Deployment**: Vercel / Netlify / Static Hosting
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## Getting Started
-
-```bash
-git clone https://github.com/your-username/herenow.git
-cd herenow
-npm install
-npm run dev
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-## Requirements
-- Node.js ≥ 18
-- Browser with Geolocation API support
-- HTTPS (required for geolocation)
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-## Notes
-- Make sure to configure your office geofence in the environment settings.
-- Geo-lock uses browser location; GPS spoofing prevention is recommended for production.
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## License
-MIT
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
