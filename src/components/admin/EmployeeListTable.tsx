@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getEmployees } from '../../services/userService';
 import { User } from '../../types/user';
+import AddEmployees from '../modals/AddEmployees';
 import { Search, ChevronRight, Users } from 'lucide-react';
 
 export default function EmployeeListTable() {
@@ -10,6 +11,7 @@ export default function EmployeeListTable() {
   const [filteredEmployees, setFilteredEmployees] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchEmployees();
@@ -65,28 +67,37 @@ export default function EmployeeListTable() {
 
   return (
     <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow">
-      <div className="border-b border-gray-200 bg-gray-50 px-4 py-4 sm:flex sm:items-center sm:justify-between">
-        <div>
-          <h3 className="text-lg font-medium leading-6 text-gray-900">Employees</h3>
-          <p className="mt-1 text-sm text-gray-500">
-            {filteredEmployees.length} {filteredEmployees.length === 1 ? 'employee' : 'employees'} total
-          </p>
-        </div>
-        <div className="mt-4 sm:mt-0">
-          <div className="relative flex items-center">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search employees..."
-              className="block w-full rounded-md border-gray-300 pl-10 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-            />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <Search className="h-4 w-4 text-gray-400" />
-            </div>
-          </div>
-        </div>
+     <div className="border-b border-gray-200 bg-gray-50 px-4 py-4 sm:flex sm:items-center sm:justify-between">
+  {/* Title and subtitle */}
+  <div>
+    <h3 className="text-lg font-medium leading-6 text-gray-900">Employees</h3>
+    <p className="mt-1 text-sm text-gray-500">
+      {filteredEmployees.length} {filteredEmployees.length === 1 ? 'employee' : 'employees'} total
+    </p>
+  </div>
+
+  {/* Search input + Add button on the right */}
+  <div className="mt-4 flex items-center space-x-2 sm:mt-0">
+    <div className="relative flex items-center">
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search employees..."
+        className="block w-full rounded-md border-gray-300 pl-10 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+      />
+      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <Search className="h-4 w-4 text-gray-400" />
       </div>
+    </div>
+    <button 
+    onClick={() => setIsModalOpen(true)}
+    className="rounded-md bg-primary px-3 py-1.5 text-sm font-medium text-white hover:bg-primary/90">
+      Add
+    </button>
+  </div>
+</div>
+
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -166,6 +177,7 @@ export default function EmployeeListTable() {
           </tbody>
         </table>
       </div>
+      <AddEmployees isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }
