@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface AddEmployeesProps {
   isOpen: boolean;
@@ -6,6 +6,8 @@ interface AddEmployeesProps {
 }
 
 export default function AddEmployees({ isOpen, onClose }: AddEmployeesProps) {
+  const [backendStatus, setBackendStatus] = useState('');
+
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -13,6 +15,13 @@ export default function AddEmployees({ isOpen, onClose }: AddEmployeesProps) {
     document.addEventListener('keydown', handleEsc);
     return () => document.removeEventListener('keydown', handleEsc);
   }, [onClose]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/ping`)
+      .then((res) => res.json())
+      .then((data) => setBackendStatus(data.message))
+      .catch(() => setBackendStatus('Gagal terhubung ke backend'));
+  }, []);
 
   if (!isOpen) return null;
 
@@ -45,6 +54,7 @@ export default function AddEmployees({ isOpen, onClose }: AddEmployeesProps) {
           </div>
 
           <div>
+            <p className="text-sm text-muted-foreground mb-4">Status koneksi backend: {backendStatus}</p>
             <label className="block text-sm font-medium text-gray-700">Department</label>
             <select
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
