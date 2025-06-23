@@ -8,14 +8,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, isAuthenticated, user } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
-
-  // Redirect if already logged in
-  if (isAuthenticated) {
-    navigate(user?.role === 'admin' ? '/admin' : '/employee');
-    return null;
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +19,7 @@ export default function LoginPage() {
     try {
       await login(email, password);
     } catch (err) {
-      setError('Invalid email or password');
+      setError('Email atau password salah');
     } finally {
       setLoading(false);
     }
@@ -37,12 +31,12 @@ export default function LoginPage() {
 
     try {
       if (role === 'admin') {
-        await login('admin@example.com', 'password');
+        await login('admin@example.com', 'admin321');
       } else {
-        await login('employee@example.com', 'password');
+        await login('employee@example.com', 'employee123');
       }
     } catch (err) {
-      setError('Failed to log in with demo account');
+      setError('Demo login gagal');
     } finally {
       setLoading(false);
     }
@@ -50,7 +44,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Left section with image for larger screens */}
+      {/* Left section with image */}
       <div className="hidden md:flex md:w-1/2 bg-primary items-center justify-center">
         <div className="max-w-md p-8 text-center">
           <div className="flex justify-center mb-6">
@@ -62,30 +56,6 @@ export default function LoginPage() {
           <p className="text-white/80 text-lg mb-8">
             Streamline your workforce management with our modern attendance tracking system.
           </p>
-          <div className="grid gap-4">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-left">
-              <div className="flex items-center mb-2">
-                <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                  <Clock className="h-4 w-4 text-white" />
-                </div>
-                <h3 className="text-white font-medium">Simple Time Tracking</h3>
-              </div>
-              <p className="text-white/70 text-sm">
-                Clock in and out with a single tap, from any device.
-              </p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-left">
-              <div className="flex items-center mb-2">
-                <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                  <Lock className="h-4 w-4 text-white" />
-                </div>
-                <h3 className="text-white font-medium">Geo-Validation</h3>
-              </div>
-              <p className="text-white/70 text-sm">
-                Location-based validation ensures accurate attendance records.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -105,15 +75,8 @@ export default function LoginPage() {
           {error && (
             <div className="mb-4 rounded-md bg-error/10 p-4">
               <div className="flex">
-                <div className="flex-shrink-0">
-                  <AlertCircle className="h-5 w-5 text-error" aria-hidden="true" />
-                </div>
-                <div className="ml-3">
-                  <h3 className="text-sm font-medium text-error">Login failed</h3>
-                  <div className="mt-2 text-sm text-error/80">
-                    <p>{error}</p>
-                  </div>
-                </div>
+                <AlertCircle className="h-5 w-5 text-error" />
+                <div className="ml-3 text-sm text-error">{error}</div>
               </div>
             </div>
           )}

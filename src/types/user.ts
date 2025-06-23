@@ -1,13 +1,12 @@
 export interface User {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   role: 'admin' | 'employee';
   department: string;
   position: string;
-  profileImage?: string;
 }
+
 
 export interface LoginCredentials {
   email: string;

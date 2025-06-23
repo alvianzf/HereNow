@@ -31,14 +31,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is stored in localStorage
     const storedUser = localStorage.getItem('timetrack_user');
     if (storedUser) {
       try {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-      } catch (error) {
-        console.error('Failed to parse stored user:', error);
+        setUser(JSON.parse(storedUser));
+      } catch {
         localStorage.removeItem('timetrack_user');
       }
     }
@@ -46,23 +43,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const login = async (email: string, password: string) => {
-    setLoading(true);
-    try {
-      const authenticatedUser = await loginUser(email, password);
-      setUser(authenticatedUser);
-      localStorage.setItem('timetrack_user', JSON.stringify(authenticatedUser));
-      
-      // Redirect based on role
-      if (authenticatedUser.role === 'admin') {
-        navigate('/admin');
-      } else {
-        navigate('/employee');
-      }
-    } catch (error) {
-      throw error;
-    } finally {
-      setLoading(false);
-    }
+    const authenticatedUser = await loginUser(email, password);
+    setUser(authenticatedUser);
+    localStorage.setItem('timetrack_user', JSON.stringify(authenticatedUser));
+    navigate(authenticatedUser.role === 'admin' ? '/admin' : '/employee');
   };
 
   const logout = () => {
@@ -71,13 +55,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     navigate('/login');
   };
 
-  const value = {
-    user,
-    loading,
-    login,
-    logout,
-    isAuthenticated: !!user,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, loading, login, logout, isAuthenticated: !!user }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
