@@ -11,6 +11,16 @@ interface AuthContextType {
   isAuthenticated: boolean;
 }
 
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: "admin" | "employee";
+  department: string;
+  position: string;
+}
+
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
