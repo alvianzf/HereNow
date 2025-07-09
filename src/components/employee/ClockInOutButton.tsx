@@ -136,7 +136,7 @@ export default function ClockInOutButton({
                 <CheckCircle className="mb-2 h-10 w-10" />
               )}
               <span className="text-lg font-semibold">
-                {clockedIn ? "Clock Out" : "Clock In"}
+                {clockedIn ? "Clock-Out" : "Clock-In"}
               </span>
             </>
           )}

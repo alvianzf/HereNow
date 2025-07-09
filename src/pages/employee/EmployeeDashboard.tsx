@@ -71,7 +71,7 @@ export default function EmployeeDashboard() {
           </div>
         </div>
 
-        <div className="rounded-lg bg-white shadow">
+        {/* <div className="rounded-lg bg-white shadow">
           <div className="border-b border-gray-200">
             <nav className="flex -mb-px" aria-label="Tabs">
               <button
@@ -103,7 +103,7 @@ export default function EmployeeDashboard() {
               <AttendanceSummary />
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </EmployeeLayout>
   );

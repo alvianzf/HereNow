@@ -1,18 +1,22 @@
-import { API_URL } from '../lib/api';
-import { User } from '../types/user';
+import { API_URL } from "../lib/api";
+import { User } from "../types/user";
 
-export const loginUser = async (email: string, password: string): Promise<User> => {
+export const loginUser = async (
+  email: string,
+  password: string
+): Promise<User> => {
   const res = await fetch(`${API_URL}/api/login`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
+    credentials: "include",
   });
 
   if (!res.ok) {
     const error = await res.json();
-    throw new Error(error.error || 'Login failed');
+    throw new Error(error.error || "Login failed");
   }
 
   const data = await res.json();
